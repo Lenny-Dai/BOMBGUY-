@@ -1,4 +1,4 @@
-# BOMBGAY!
+# BOMBGUY!
 
 #### Team 13：GensokyoCraft
 
