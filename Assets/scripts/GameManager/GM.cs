@@ -18,6 +18,8 @@ public class GM : MonoBehaviour
         Resource3.getHero(c); 
         goldobj.getHero(c);
         BombScript.getHero(c);
+        BulletScript.getHero(c);
+        ShieldScript.getHero(c);
         QBehav.getHero(c);
         Blink.getHero(c);
     }

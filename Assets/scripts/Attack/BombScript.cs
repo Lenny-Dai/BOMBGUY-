@@ -8,7 +8,8 @@ public class BombScript : MonoBehaviour
     bool isDestroying = false;
     private float ImgTime;
     private int Imgcnt;
-    public float damage;    public Sprite[] FlyBomb;
+    public float damage;    
+    public Sprite[] FlyBomb;
     public Sprite[] LandBomb;
     public SpriteRenderer BombRender;
     public Vector3 TargetP;//这个值是鼠标点击的地方
@@ -23,7 +24,7 @@ public class BombScript : MonoBehaviour
         isDestroying = false;
         BombRender = GetComponent<SpriteRenderer>();
         TargetP.z = 0;
-        Debug.Log(TargetP);
+        // Debug.Log(TargetP);
         transform.position = h.transform.position;
         curPosition = transform.position;
         damage = 500f;
@@ -50,7 +51,7 @@ public class BombScript : MonoBehaviour
     //TODO 加上和谁碰撞
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("with:"+collision.gameObject.name);
+        // Debug.Log("with:"+collision.gameObject.name);
         MyDestory();
     }
 

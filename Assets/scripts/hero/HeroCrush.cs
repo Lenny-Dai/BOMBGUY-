@@ -43,9 +43,12 @@ public class HeroCrush : MonoBehaviour
                 OnlyOnce = false;
             }
             if (sum == 4 && OnlyOnce){
+                GameObject e = Instantiate(Resources.Load("prefabs/BulletController") as GameObject);
                 OnlyOnce = false;
             }
             if (sum == 5 && OnlyOnce){
+                GameObject e = Instantiate(Resources.Load("prefabs/Shield") as GameObject);
+                StartCoroutine(ChgSpd());
                 OnlyOnce = false;
             }
             if(e[0] == null && e[1] == null){
@@ -143,4 +146,12 @@ public class HeroCrush : MonoBehaviour
         obtainable = false;
     }
 
+    private IEnumerator ChgSpd(){
+        HeroMove mv = GetComponent<HeroMove>();
+        mv.HeroSpeed *= 2f;
+        yield return new WaitForSeconds(5f);
+        mv.HeroSpeed /= 2f;
+    }
 }
+
+
