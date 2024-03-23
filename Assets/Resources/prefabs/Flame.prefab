@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 0.62, y: 0.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3984908543426684565
@@ -100,10 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fire:
-  - {fileID: -855298285791758126, guid: 9f811fc6820082b4cb0194e0d5a819e0, type: 3}
-  - {fileID: 6937817954938267909, guid: 9295126ef2180724f9f70e3bb205b4c4, type: 3}
-  - {fileID: -6470460504253458178, guid: b95126f26f78d4e42ac012f487680af3, type: 3}
-  - {fileID: -4178046375966092550, guid: 78a9f5c00766de340b7652837bd05e84, type: 3}
-  - {fileID: 4130640169021434097, guid: d12ea7953615b5945ae8a65cb843db7f, type: 3}
-  - {fileID: 3465286685962602723, guid: ee35f736bcb63da4f8e64993a7a7d36b, type: 3}
-  - {fileID: 7028616704906629411, guid: d66a2ff7c8db31f428c41299f66ca97b, type: 3}
+  - {fileID: 21300000, guid: 9f811fc6820082b4cb0194e0d5a819e0, type: 3}
+  - {fileID: 21300000, guid: 9295126ef2180724f9f70e3bb205b4c4, type: 3}
+  - {fileID: 21300000, guid: b95126f26f78d4e42ac012f487680af3, type: 3}
+  - {fileID: 21300000, guid: 78a9f5c00766de340b7652837bd05e84, type: 3}
+  - {fileID: 21300000, guid: d12ea7953615b5945ae8a65cb843db7f, type: 3}
+  - {fileID: 21300000, guid: ee35f736bcb63da4f8e64993a7a7d36b, type: 3}
+  - {fileID: 21300000, guid: d66a2ff7c8db31f428c41299f66ca97b, type: 3}
+  FireRender: {fileID: 0}

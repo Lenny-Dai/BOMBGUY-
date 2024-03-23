@@ -43,7 +43,7 @@ public class HeroMove : MonoBehaviour
         StaticCnt = 0;
         EnterCnt = 0;
         HeroRender = GetComponent<SpriteRenderer>();
-        transform.position = new Vector3 (0, 0, 0);
+        transform.position = new Vector3 (-242, -272, 0);
         statusRight = true;
         StartCoroutine(EnterCoroutine()); //为了让开门动作先执行
     }
@@ -114,7 +114,7 @@ public class HeroMove : MonoBehaviour
     }
 
     private void StayStill(bool statusRight){
-        StaticCnt = 0;
+        // StaticCnt = 0;
         if(statusRight){
             if(Time.time - TimeStatic > 1/7f){
                 StaticCnt = (StaticCnt + 1) % StaticHeroR.Length;
@@ -147,7 +147,7 @@ public class HeroMove : MonoBehaviour
     IEnumerator EnterCoroutine()
     {
     // 等待4秒，实现在Awake后的4秒开始执行
-        yield return new WaitForSeconds(4f);
+        // yield return new WaitForSeconds(4f);
 
         while (EnterCnt < EnterHero.Length) // 限制次数为 EnterHero.Length
         {

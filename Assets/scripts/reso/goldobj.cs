@@ -36,6 +36,9 @@ public class goldobj : MonoBehaviour
             }else if(on ==2){
                 transform.position = h.transform.position + new Vector3(17, 50, 0);
             }
+            if (h.getobjNum() == 2){
+                Destroy(transform.gameObject);
+            }
         }
 
         if(h.getchoose()){

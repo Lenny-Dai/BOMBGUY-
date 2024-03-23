@@ -71,12 +71,20 @@
     <Compile Include="Assets\scripts\reso\goldobj.cs" />
     <Compile Include="Assets\scripts\hero\HeroCrush.cs" />
     <Compile Include="Assets\scripts\mouse\Mouse.cs" />
+    <Compile Include="Assets\scripts\bullet\enemy2.cs" />
+    <Compile Include="Assets\scripts\Attack\ControlBomb.cs" />
+    <Compile Include="Assets\scripts\bullet\basicbullet.cs" />
     <Compile Include="Assets\scripts\reso\Resource3.cs" />
     <Compile Include="Assets\scripts\reso\Resource1.cs" />
     <Compile Include="Assets\scripts\Flame\Flame.cs" />
+    <Compile Include="Assets\scripts\bullet\enemy1.cs" />
     <Compile Include="Assets\scripts\hero\HeroMove.cs" />
+    <Compile Include="Assets\scripts\Attack\BombScript.cs" />
+    <Compile Include="Assets\scripts\bullet\datas.cs" />
     <Compile Include="Assets\scripts\reso\Resource2.cs" />
     <Compile Include="Assets\scripts\hint\Blink.cs" />
+    <Compile Include="Assets\scripts\hero\HeroAttack.cs" />
+    <Compile Include="Assets\scripts\bullet\enemy3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

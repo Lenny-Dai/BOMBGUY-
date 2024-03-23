@@ -15,13 +15,13 @@ public class DoorOpen : MonoBehaviour
         {
             DoorRender.sprite = DoorOp[Doorcnt];
             Doorcnt++;
-            yield return new WaitForSeconds(1f); //等待一秒
+            yield return new WaitForSeconds(0.5f); //等待一秒
         }
     }
     void Awake()
     {
         Doorcnt = 0;
-        transform.position = new Vector3 (0, 25, 10);
+        transform.position = new Vector3 (-239, -262, 10);
         DoorRender = GetComponent<SpriteRenderer>();
         StartCoroutine(DoChangeSprite());
     }

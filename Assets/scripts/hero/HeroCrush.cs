@@ -5,26 +5,30 @@ using UnityEngine.LowLevelPhysics;
 
 public class HeroCrush : MonoBehaviour
 {
-    private GameObject e;
+    private GameObject[] e;
     public bool intersect;//是否在拿东西
     private bool obtainable;//目前的资源能不能拿
     private int[] obtains = new int[2];
     private bool choose;
     private int hold;
     private int objnum;
+    private int sum;//用来判断收集的类型
     public Resource1 r1 = null;
     public Resource2 r2 = null;
     public Resource3 r3 = null;
+    private bool OnlyOnce = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        e = new GameObject[2];
         objnum = 0;
         hold = 0;
+        sum = 0;
         choose = false;
         intersect = false;
         obtainable = false;
-        obtains[0] = 0; // 给数组的第一个元素赋值为0
+        obtains[0] = 0;
         obtains[1] = 0;
     }
 
@@ -32,6 +36,26 @@ public class HeroCrush : MonoBehaviour
     void Update()
     {
         // TODO 这里写不同属性的合成
+        if (obtains[1] != 0){
+            sum = obtains[0] + obtains[1];
+            if (sum == 3 && OnlyOnce){
+                GameObject e = Instantiate(Resources.Load("prefabs/BombController") as GameObject);
+                OnlyOnce = false;
+            }
+            if (sum == 4 && OnlyOnce){
+                OnlyOnce = false;
+            }
+            if (sum == 5 && OnlyOnce){
+                OnlyOnce = false;
+            }
+            if(e[0] == null && e[1] == null){
+                Debug.Log("obj reset");
+                obtains[0] = 0;// 给数组的第一个元素赋值为0
+                obtains[1] = 0;
+                objnum = 0;
+                OnlyOnce = true;
+            }
+        }
     }
 
     public int getobjNum(){
@@ -50,6 +74,8 @@ public class HeroCrush : MonoBehaviour
         return choose;
     }
 
+    
+    // TODO 人和子弹碰撞问题
     private void OnTriggerEnter2D(Collider2D collision)
     {
         intersect = true;
@@ -57,35 +83,33 @@ public class HeroCrush : MonoBehaviour
         }else{   
             // Debug.Log(hold);         
             if(collision.gameObject.name == "Resource1" && hold != 1){
-                e = Instantiate(Resources.Load("prefabs/gold") as GameObject);
+                e[objnum] = Instantiate(Resources.Load("prefabs/gold") as GameObject);
                 r1.hint();
                 hold = 1;
             }
 
             if(collision.gameObject.name == "Resource2" && hold != 2){
-                e = Instantiate(Resources.Load("prefabs/W") as GameObject);
+                e[objnum] = Instantiate(Resources.Load("prefabs/W") as GameObject);
                 r2.hint();
                 hold = 2;
             }
 
             if(collision.gameObject.name == "Resource3" && hold != 3){
-                e = Instantiate(Resources.Load("prefabs/M") as GameObject);
+                e[objnum] = Instantiate(Resources.Load("prefabs/M") as GameObject);
                 r3.hint();
                 hold = 3;
             }
-            // TODO 在这里写碰到其他三个角怎么办
-            if (e != null){
+            if (e[objnum] != null){
                 obtainable = true; 
                 if (objnum == 0){
-                    e.transform.localPosition = transform.localPosition + new Vector3(-17, 50, 0);
+                    e[objnum].transform.localPosition = transform.localPosition + new Vector3(-17, 50, 0);
                 }else{
-                    e.transform.localPosition = transform.localPosition + new Vector3(17, 50, 0);
+                    e[objnum].transform.localPosition = transform.localPosition + new Vector3(17, 50, 0);
                 }
             }
         }
     }
 
-    
     private void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log("choose:"+choose);
