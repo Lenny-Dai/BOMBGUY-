@@ -21,6 +21,7 @@ public class GM : MonoBehaviour
         BulletScript.getHero(c);
         ShieldScript.getHero(c);
         HeartScript.getHero(c);
+        NormalBullet.getHero(c);
         QBehav.getHero(c);
         Blink.getHero(c);
     }
