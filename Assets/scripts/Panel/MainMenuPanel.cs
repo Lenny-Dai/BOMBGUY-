@@ -7,6 +7,6 @@ public class MainMenuPanel : MonoBehaviour
 {
     public void LoadGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("save");
     }
 }

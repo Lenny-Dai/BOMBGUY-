@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics;
 
@@ -18,7 +17,8 @@ public class HeroCrush : MonoBehaviour
     public Resource2 r2 = null;
     public Resource3 r3 = null;
     private bool OnlyOnce = true;
-    private int health;
+
+    private ScoreSystem scoreSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,8 @@ public class HeroCrush : MonoBehaviour
         obtainable = false;
         obtains[0] = 0;
         obtains[1] = 0;
-        health = 13;
+
+        scoreSystem = GameObject.Find("ScoreTxt").GetComponent<ScoreSystem>();
     }
 
     // Update is called once per frame
@@ -64,9 +65,6 @@ public class HeroCrush : MonoBehaviour
         }
     }
 
-    public int gethealth(){
-        return health;
-    }
     public int getobjNum(){
         return objnum;
     }
@@ -91,19 +89,19 @@ public class HeroCrush : MonoBehaviour
         if(objnum >= 2){
         }else{   
             // Debug.Log(hold);         
-            if(collision.gameObject.name == "Resource1" && hold != 1 && r1.mindactivate){
+            if(collision.gameObject.name == "Resource1" && hold != 1){
                 e[objnum] = Instantiate(Resources.Load("prefabs/gold") as GameObject);
                 r1.hint();
                 hold = 1;
             }
 
-            if(collision.gameObject.name == "Resource2" && hold != 2 && r2.mindactivate){
+            if(collision.gameObject.name == "Resource2" && hold != 2){
                 e[objnum] = Instantiate(Resources.Load("prefabs/W") as GameObject);
                 r2.hint();
                 hold = 2;
             }
 
-            if(collision.gameObject.name == "Resource3" && hold != 3 && r3.mindactivate){
+            if(collision.gameObject.name == "Resource3" && hold != 3){
                 e[objnum] = Instantiate(Resources.Load("prefabs/M") as GameObject);
                 r3.hint();
                 hold = 3;
@@ -116,6 +114,12 @@ public class HeroCrush : MonoBehaviour
                     e[objnum].transform.localPosition = transform.localPosition + new Vector3(17, 50, 0);
                 }
             }
+        }
+
+        if (collision.tag == "Bullet")
+        {
+            //重置每秒钟增加的分数
+            scoreSystem.ResetPerScore();
         }
     }
 
@@ -138,6 +142,7 @@ public class HeroCrush : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         intersect = false;

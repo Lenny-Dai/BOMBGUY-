@@ -15,6 +15,8 @@ public class enemy_snipe : MonoBehaviour
     Sprite ball_huan;
     int shoot=0;
     int shoot2=0;
+
+    private ScoreSystem scoreSystem;
     void Start()
     {
         bullet1=Resources.Load("enemy/prefab/bulletclass") as GameObject;
@@ -25,6 +27,8 @@ public class enemy_snipe : MonoBehaviour
         bsb.chplace(cx-lx,cy+ly/2);
         bsb.chv(3);
         h=GameObject.Find("Hero");
+        scoreSystem = GameObject.Find("ScoreTxt").GetComponent<ScoreSystem>();
+
     }
     float gdeg(GameObject x,GameObject y){
         float x1=x.transform.localPosition.x,y1=x.transform.localPosition.y;
@@ -115,10 +119,12 @@ public class enemy_snipe : MonoBehaviour
         if(cld.gameObject.name=="bomb(Clone)"){
             BombScript bscr=cld.gameObject.GetComponent<BombScript>();
             self.hp-=bscr.damage;
+            scoreSystem.AddScore(100);
         }
         if(cld.gameObject.name=="HeroBullet(Clone)"){
             BulletScript bscr=cld.gameObject.GetComponent<BulletScript>();
             self.hp-=bscr.damage;
+            scoreSystem.AddScore(100);
         }
     }
 }
