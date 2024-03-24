@@ -8,7 +8,6 @@ public class BulletScript : MonoBehaviour
     static private HeroCrush h = null;
     bool isDestroying = false;
     private float ImgTime;
-    public bool dir;
     private int Imgcnt;
     public float damage;    
     public SpriteRenderer BombRender;
@@ -21,6 +20,7 @@ public class BulletScript : MonoBehaviour
     private float bias;//偏移量
     private float freq;//偏移频率
     private Vector3 ori;
+    private bool move;
     static public void getHero(HeroCrush g){
         h = g;
     } 
@@ -32,23 +32,20 @@ public class BulletScript : MonoBehaviour
         // Debug.Log(TargetP);
         transform.position = h.transform.position;
         curPosition = transform.position;
-        damage = 0.1f;
-        speed = 800f;
+        damage = 0.001f;
+        speed = 0.24f;
         starttime = Time.time;
-        bias = 1000f;
+        bias = 1f;
         freq = 15f;
         Dir = (TargetP - curPosition).normalized;
-        Trans = new Vector3(Dir.y, -Dir.x, 0);
-        if (dir)Trans = -Trans;
+        move = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        travel();
-        if (HitWall()){
-            Debug.Log("hitwall");
-            Destroy(transform.gameObject);
+        if (!move){
+            StartCoroutine(travel());
         }
     }
 
@@ -66,10 +63,17 @@ public class BulletScript : MonoBehaviour
     }
 
 
-    private void travel(){
-        ori = Dir * speed + bias * Trans * Mathf.Cos(freq * (Time.time - starttime));
-        transform.up = -ori;
-        curPosition += ori * Time.smoothDeltaTime;
-        transform.position = curPosition;
+    private IEnumerator travel(){
+        move = true;
+        while(!HitWall()){
+            Trans = new Vector3(Dir.y, -Dir.x, 0);
+            ori = Dir * speed + bias * Trans * Mathf.Cos(freq * (Time.time - starttime));
+            transform.up = -ori;
+            curPosition += ori;
+            transform.position = curPosition;
+            yield return new WaitForSeconds(0.0001f);
+        }
+        Debug.Log("hitwall");
+        Destroy(transform.gameObject);
     }
 }

@@ -25,23 +25,15 @@ public class ControlBull : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             if (Time.time - CoolDownTime > mintime){
-                GameObject e1 = Instantiate(Resources.Load("prefabs/HeroBullet") as GameObject);
-                GameObject e2 = Instantiate(Resources.Load("prefabs/HeroBullet") as GameObject);
+                GameObject e = Instantiate(Resources.Load("prefabs/HeroBullet") as GameObject);
                 Vector3 screenPos = Input.mousePosition;
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
                 CoolDownTime = Time.time;
                 worldPos.z = 0;
-                BulletScript script1 = e1.GetComponent<BulletScript>();
-                if (script1 != null) 
+                BombScript script = e.GetComponent<BombScript>();
+                if (script != null) 
                 {
-                    script1.dir = true;
-                    script1.TargetP = worldPos;
-                }
-                BulletScript script2 = e2.GetComponent<BulletScript>();
-                if (script2 != null) 
-                {
-                    script2.dir = false;
-                    script2.TargetP = worldPos;
+                    script.TargetP = worldPos;
                 }
             }
         }
