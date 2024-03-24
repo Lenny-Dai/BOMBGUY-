@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class enemy_snipe : MonoBehaviour
+public class enemy_melee : MonoBehaviour
 {
     // Start is called before the first frame update
     float frame=0.0166f;
@@ -19,12 +19,11 @@ public class enemy_snipe : MonoBehaviour
     void Start()
     {
         bullet1=Resources.Load("enemy/prefab/bulletclass") as GameObject;
-        ball_huan=Resources.Load<Sprite>("enemy/ball_mid_2") as Sprite;
-        arrow=Resources.Load<Sprite>("enemy/arrow_2") as Sprite;
+        ball_huan=Resources.Load<Sprite>("enemy/ball_mid_1") as Sprite;
         datas self=GetComponent<datas>();
-        self.hp=2000f;
+        self.hp=1000f;
         basicbullet bsb=GetComponent<basicbullet>();
-        bsb.chplace(cx-lx+1,cy+ly/2);
+        //bsb.chplace(cx-lx+1,cy+ly/2);
         bsb.chv(3);
         h=GameObject.Find("Hero");
     }
