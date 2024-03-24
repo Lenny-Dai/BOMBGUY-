@@ -32,7 +32,7 @@ public class ControlBomb : MonoBehaviour
                 worldPos.z = 0;
                 BombScript script = e.GetComponent<BombScript>();
                 if (script != null) 
-                {
+                {                 
                     script.TargetP = worldPos;
                 }
             }

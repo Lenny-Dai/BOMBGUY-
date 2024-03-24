@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics;
 
@@ -13,6 +14,7 @@ public class HeroCrush : MonoBehaviour
     private int hold;
     private int objnum;
     private int sum;//用来判断收集的类型
+    private int health;
     public Resource1 r1 = null;
     public Resource2 r2 = null;
     public Resource3 r3 = null;
@@ -30,6 +32,7 @@ public class HeroCrush : MonoBehaviour
         obtainable = false;
         obtains[0] = 0;
         obtains[1] = 0;
+        health = 13;
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class HeroCrush : MonoBehaviour
             if (sum == 5 && OnlyOnce){
                 GameObject e = Instantiate(Resources.Load("prefabs/Shield") as GameObject);
                 StartCoroutine(ChgSpd());
+                heal();
                 OnlyOnce = false;
             }
             if(e[0] == null && e[1] == null){
@@ -56,8 +60,12 @@ public class HeroCrush : MonoBehaviour
                 obtains[0] = 0;// 给数组的第一个元素赋值为0
                 obtains[1] = 0;
                 objnum = 0;
+                hold = 0;
                 OnlyOnce = true;
             }
+        }
+        if (health <= 0){
+            Application.Quit();
         }
     }
 
@@ -82,22 +90,25 @@ public class HeroCrush : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         intersect = true;
+        // if(collision.gameObject.name == "bullet"){
+        //     health--;
+        // }
         if(objnum >= 2){
         }else{   
             // Debug.Log(hold);         
-            if(collision.gameObject.name == "Resource1" && hold != 1){
+            if(collision.gameObject.name == "Resource1" && hold != 1 && r1.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/gold") as GameObject);
                 r1.hint();
                 hold = 1;
             }
 
-            if(collision.gameObject.name == "Resource2" && hold != 2){
+            if(collision.gameObject.name == "Resource2" && hold != 2 && r2.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/W") as GameObject);
                 r2.hint();
                 hold = 2;
             }
 
-            if(collision.gameObject.name == "Resource3" && hold != 3){
+            if(collision.gameObject.name == "Resource3" && hold != 3 && r3.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/M") as GameObject);
                 r3.hint();
                 hold = 3;
@@ -117,17 +128,23 @@ public class HeroCrush : MonoBehaviour
     {
         Debug.Log("choose:"+choose);
         if(!choose && obtainable){
-            Debug.Log("Allow you to type1!"); 
+            // Debug.Log("Allow you to type1!"); 
             if(objnum < 2){  
-                Debug.Log("Allow you to type2!" + objnum);        
+                // Debug.Log("Allow you to type2!" + objnum);        
                 if (Input.GetKey(KeyCode.Q)){
-                    Debug.Log("Allow you to type332!");
+                    // Debug.Log("Allow you to type332!");
                     choose = true;
                     obtains[objnum++] = hold;
                     obtainable = false;
-                    if(hold == 1)r1.collapse();
-                    if(hold == 2)r2.collapse();
-                    if(hold == 3)r3.collapse();
+                    if(hold == 1){
+                        r1.collapse();
+                    }
+                    if(hold == 2){
+                        r2.collapse();
+                    }
+                    if(hold == 3){
+                        r3.collapse();
+                    }
                 }
             }
         }
@@ -152,6 +169,14 @@ public class HeroCrush : MonoBehaviour
         yield return new WaitForSeconds(5f);
         mv.HeroSpeed /= 2f;
     }
+
+    private void heal(){
+        health += 6;
+        if(health > 13){
+            health = 13;
+        }
+    }
+
 }
 
 

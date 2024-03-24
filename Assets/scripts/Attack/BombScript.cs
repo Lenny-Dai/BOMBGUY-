@@ -7,6 +7,7 @@ public class BombScript : MonoBehaviour
     static private HeroCrush h = null;
     bool isDestroying = false;
     private float ImgTime;
+    private int Imgcnt1;
     private int Imgcnt;
     public float damage;    
     public Sprite[] FlyBomb;
@@ -57,8 +58,8 @@ public class BombScript : MonoBehaviour
 
     private void updateimg(){
         if (Time.time - ImgTime > 0.8){
-            Imgcnt = (Imgcnt + 1) % FlyBomb.Length;
-            BombRender.sprite = FlyBomb[Imgcnt];
+            Imgcnt1 = (Imgcnt1 + 1) % FlyBomb.Length;
+            BombRender.sprite = FlyBomb[Imgcnt1];
             ImgTime = Time.time;
         }
     }
