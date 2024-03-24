@@ -69,6 +69,9 @@ public class HeroCrush : MonoBehaviour
         }
     }
 
+    public int gethealth(){
+        return health;
+    }
     public int getobjNum(){
         return objnum;
     }
