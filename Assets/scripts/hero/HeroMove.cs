@@ -6,7 +6,7 @@ using UnityEngine.LowLevelPhysics;
 public class HeroMove : MonoBehaviour
 {
     //人物速度
-    private const float spd = 800f;
+    private const float spd = 200f;
     public float HeroSpeed = 100.0f; 
     //控制左跑步动作的时间
     private float TimeRunLeft;
@@ -29,8 +29,6 @@ public class HeroMove : MonoBehaviour
     private int EnterCnt = 1;
     private bool isEnterDone = false;
     private bool statusRight;
-    private float Heroimg;
-    private BoxCollider2D boxCollider;
 
     void Awake()
     {    
@@ -44,7 +42,6 @@ public class HeroMove : MonoBehaviour
         RightRunCnt = 0;
         StaticCnt = 0;
         EnterCnt = 0;
-        Heroimg = 1/28f;
         HeroRender = GetComponent<SpriteRenderer>();
         transform.position = new Vector3 (-242, -272, 0);
         statusRight = true;
@@ -52,7 +49,7 @@ public class HeroMove : MonoBehaviour
     }
 
     void Start(){
-        boxCollider = GetComponent<BoxCollider2D>();
+
     }
 
     // Update is called once per frame
@@ -101,7 +98,7 @@ public class HeroMove : MonoBehaviour
     }
 
     private void RUNLeft(){
-        if(Time.time - TimeRunLeft > Heroimg){
+        if(Time.time - TimeRunLeft > 1/14f){
             LeftRunCnt = (LeftRunCnt + 1) % LeftRun.Length;
             HeroRender.sprite = LeftRun[LeftRunCnt];
             TimeRunLeft = Time.time;
@@ -109,7 +106,7 @@ public class HeroMove : MonoBehaviour
     }
 
     private void RUNRight(){
-        if(Time.time - TimeRunRight > Heroimg){
+        if(Time.time - TimeRunRight > 1/14f){
             RightRunCnt = (RightRunCnt + 1) % RightRun.Length;
             HeroRender.sprite = RightRun[RightRunCnt];
             TimeRunRight = Time.time;
@@ -138,7 +135,6 @@ public class HeroMove : MonoBehaviour
         Color q = GetComponent<Renderer>().material.color;
         q.a = 0.2f;
         GetComponent<Renderer>().material.color = q;
-        boxCollider.size = new Vector2(0.1f, 0.15f);
     }
 
     private void UnHoldMode(){
@@ -146,7 +142,6 @@ public class HeroMove : MonoBehaviour
         Color q = GetComponent<Renderer>().material.color;
         q.a = 1f;
         GetComponent<Renderer>().material.color = q;
-        boxCollider.size = new Vector2(0.51f, 0.55f);
     }
 
     IEnumerator EnterCoroutine()
