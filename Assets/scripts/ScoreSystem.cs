@@ -16,7 +16,7 @@ public class ScoreSystem : MonoBehaviour
     {
         scoreTxt = GetComponent<Text>();
         score = 0;
-        scoreTxt.text = "0";
+        scoreTxt.text = "·ÖÊý£º0";
         ResetPerScore();
 
     }
