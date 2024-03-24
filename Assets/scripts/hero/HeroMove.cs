@@ -29,6 +29,7 @@ public class HeroMove : MonoBehaviour
     private int EnterCnt = 1;
     private bool isEnterDone = false;
     private bool statusRight;
+    private BoxCollider2D boxCollider;
 
     void Awake()
     {    
@@ -49,7 +50,7 @@ public class HeroMove : MonoBehaviour
     }
 
     void Start(){
-
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -69,6 +70,9 @@ public class HeroMove : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A)){
                 p.x -= HeroSpeed * Time.smoothDeltaTime;
+                if (p.x < -960){
+                    p.x += HeroSpeed * Time.smoothDeltaTime * 10;
+                }
                 RUNLeft();
                 statusRight = false;
                 flag = !flag;
@@ -76,17 +80,26 @@ public class HeroMove : MonoBehaviour
                 RUNRight();
                 statusRight = true;
                 p.x += HeroSpeed * Time.smoothDeltaTime;
+                if (p.x > 530){
+                    p.x -= HeroSpeed * Time.smoothDeltaTime * 10;
+                }
                 flag = !flag;
             }
             if (Input.GetKey(KeyCode.S)){
                 // RUNLeft();
                 // statusRight = false;
                 p.y -= HeroSpeed * Time.smoothDeltaTime;
+                if (p.y < -540){
+                    p.y += HeroSpeed * Time.smoothDeltaTime * 10;
+                }
                 flag = !flag;
             }else if (Input.GetKey(KeyCode.W)){
                 // RUNRight();
                 // statusRight = true;
                 p.y += HeroSpeed * Time.smoothDeltaTime;
+                if (p.y > 540){
+                    p.y -= HeroSpeed * Time.smoothDeltaTime * 10;
+                }
                 flag = !flag;
             }
             if (flag){
@@ -135,6 +148,7 @@ public class HeroMove : MonoBehaviour
         Color q = GetComponent<Renderer>().material.color;
         q.a = 0.2f;
         GetComponent<Renderer>().material.color = q;
+        boxCollider.size = new Vector2(0.1f, 0.15f);
     }
 
     private void UnHoldMode(){
@@ -142,6 +156,7 @@ public class HeroMove : MonoBehaviour
         Color q = GetComponent<Renderer>().material.color;
         q.a = 1f;
         GetComponent<Renderer>().material.color = q;
+        boxCollider.size = new Vector2(0.51f, 0.55f);
     }
 
     IEnumerator EnterCoroutine()
@@ -157,6 +172,12 @@ public class HeroMove : MonoBehaviour
         }
 
         isEnterDone = true;
+    }
+
+    private bool HitWall(){
+        Vector3 a = transform.position;
+        if((a.x < -960) || (a.x > 530) || (a.y < -540) || (a.y > 540))return true;
+        return false;
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Resource1 : MonoBehaviour
 {
-    private bool mindactivate;
+    public bool mindactivate;
     private float deathtime;
     private float renewtime;
     public Sprite[] goldmind;

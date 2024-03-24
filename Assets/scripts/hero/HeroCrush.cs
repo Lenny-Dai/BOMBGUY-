@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics;
 
@@ -17,6 +18,7 @@ public class HeroCrush : MonoBehaviour
     public Resource2 r2 = null;
     public Resource3 r3 = null;
     private bool OnlyOnce = true;
+    private int health;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class HeroCrush : MonoBehaviour
         obtainable = false;
         obtains[0] = 0;
         obtains[1] = 0;
+        health = 13;
     }
 
     // Update is called once per frame
@@ -88,19 +91,19 @@ public class HeroCrush : MonoBehaviour
         if(objnum >= 2){
         }else{   
             // Debug.Log(hold);         
-            if(collision.gameObject.name == "Resource1" && hold != 1){
+            if(collision.gameObject.name == "Resource1" && hold != 1 && r1.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/gold") as GameObject);
                 r1.hint();
                 hold = 1;
             }
 
-            if(collision.gameObject.name == "Resource2" && hold != 2){
+            if(collision.gameObject.name == "Resource2" && hold != 2 && r2.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/W") as GameObject);
                 r2.hint();
                 hold = 2;
             }
 
-            if(collision.gameObject.name == "Resource3" && hold != 3){
+            if(collision.gameObject.name == "Resource3" && hold != 3 && r3.mindactivate){
                 e[objnum] = Instantiate(Resources.Load("prefabs/M") as GameObject);
                 r3.hint();
                 hold = 3;

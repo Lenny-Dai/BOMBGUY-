@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     static private HeroCrush h = null;
     bool isDestroying = false;
     private float ImgTime;
+    public bool dir;
     private int Imgcnt;
     public float damage;    
     public SpriteRenderer BombRender;
@@ -20,7 +21,6 @@ public class BulletScript : MonoBehaviour
     private float bias;//偏移量
     private float freq;//偏移频率
     private Vector3 ori;
-    private bool move;
     static public void getHero(HeroCrush g){
         h = g;
     } 
@@ -32,20 +32,23 @@ public class BulletScript : MonoBehaviour
         // Debug.Log(TargetP);
         transform.position = h.transform.position;
         curPosition = transform.position;
-        damage = 0.001f;
-        speed = 0.24f;
+        damage = 0.1f;
+        speed = 800f;
         starttime = Time.time;
-        bias = 1f;
+        bias = 1000f;
         freq = 15f;
         Dir = (TargetP - curPosition).normalized;
-        move = false;
+        Trans = new Vector3(Dir.y, -Dir.x, 0);
+        if (dir)Trans = -Trans;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!move){
-            StartCoroutine(travel());
+        travel();
+        if (HitWall()){
+            Debug.Log("hitwall");
+            Destroy(transform.gameObject);
         }
     }
 
@@ -63,17 +66,10 @@ public class BulletScript : MonoBehaviour
     }
 
 
-    private IEnumerator travel(){
-        move = true;
-        while(!HitWall()){
-            Trans = new Vector3(Dir.y, -Dir.x, 0);
-            ori = Dir * speed + bias * Trans * Mathf.Cos(freq * (Time.time - starttime));
-            transform.up = -ori;
-            curPosition += ori;
-            transform.position = curPosition;
-            yield return new WaitForSeconds(0.0001f);
-        }
-        Debug.Log("hitwall");
-        Destroy(transform.gameObject);
+    private void travel(){
+        ori = Dir * speed + bias * Trans * Mathf.Cos(freq * (Time.time - starttime));
+        transform.up = -ori;
+        curPosition += ori * Time.smoothDeltaTime;
+        transform.position = curPosition;
     }
 }
